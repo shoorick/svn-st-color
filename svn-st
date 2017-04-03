@@ -21,6 +21,7 @@ use constant COLOR => {
         'I' => 'bold black',
         'C' => 'bold white on_red',
         '!' => 'black on_red',
+        '~' => 'bold magenta on_blue',
     }
 };
 
@@ -41,5 +42,6 @@ foreach ( `$command` ) {
     and next
         unless $color;
 
-    print colored($_, $color);
+    chomp;
+    print colored($_, $color), "\n";
 } # foreach
