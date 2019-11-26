@@ -57,6 +57,7 @@ subcommands:
         aliases: pd(el)?
     propedit:
         aliases: pe(dit)?
+        interactive:    1
     propget:
         aliases: pg(et)?
     proplist:

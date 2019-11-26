@@ -26,6 +26,9 @@ L<http://shoorick.ru>
 
 =cut
 
+use warnings;
+use strict;
+
 use FindBin;
 use Term::ANSIColor;
 use YAML::Tiny;
