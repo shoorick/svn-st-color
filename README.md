@@ -26,3 +26,5 @@ alias svn="some/path/to/svn-color"
 Use `svn-color` instead of usual `svn` or make symlink/alias (see above).
 
 ![Screenshot](screenshot.png)
+
+![Screenshot](screenshot-svn-diff.png)
