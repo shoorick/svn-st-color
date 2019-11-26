@@ -1,19 +1,28 @@
 # svn-st-color
 
-Wrapper for colorizing of `svn status` command
+Wrappers for colorizing Subversion output
 
 ## Installation
 
 1. Clone repository somewhere.
 
-2. Make symbolic link:
+2. (_optional_) Make symbolic link:
 
 ```
-ln -s some/path/to/svn-st ~/bin/svn-st
+ln -s some/path/to/svn-color ~/bin/svn
+```
+
+or
+
+Add alias to ~/.bash_aliases
+
+```
+# Colorful Subversion client
+alias svn="some/path/to/svn-color"
 ```
 
 ## Usage
 
-Use `svn-st` instead of usual `svn st` or `svn status`.
+Use `svn-color` instead of usual `svn` or make symlink/alias (see above).
 
 ![Screenshot](screenshot.png)
