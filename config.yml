@@ -2,17 +2,17 @@
 subcommands:
     add:
         use:    status
-    auth:       none
+    # auth: not yet implemented
     blame:
         aliases:    (ann(otate)?|praise)
         rules:
             new:  ^\s+-\s+-\s
-    cat:        none
+    # cat:
     changelist:
         aliases:    cl
     checkout:
         aliases:    co
-    cleanup:    none
+    # cleanup:
     commit:
         aliases:    ci
     copy:
@@ -30,22 +30,22 @@ subcommands:
             remove:         '^-'
             index:          '^(Index:|===)'
             lines:          '^[@#]{2}'
-    export: none
+    # export:
     help:
         aliases:    [h\?]
         rules:
             header: ^(Available subcommands|Example output|Global options|usage|Valid options):\s
-    import:     none
-    info:       none
+    # import:
+    # info:
     list:
         aliases:    ls
-    lock:       none
+    # lock:
     log:
         rules:
             data:   '^r\d+\s+\|\s+\w+\s+\|\s+\d+'
             line:   '^-{10}'
-    merge:      none
-    mergeinfo:  none
+    # merge:
+    # mergeinfo:
     mkdir:
         use:        status
     move:
@@ -63,10 +63,10 @@ subcommands:
         aliases: pl(ist)?
     propset:
         aliases: ps(et)?
-    relocate:   none
-    resolve:    none
-    resolved:   none
-    revert:     none
+    # relocate:
+    # resolve:
+    # resolved:
+    # revert:
     status:
         aliases: st(at)?
         rules:
@@ -103,11 +103,11 @@ subcommands:
             # http://svnbook.red-bean.com/en/1.7/svn.ref.svn.c.status.html
     switch:
         aliases:    sw
-    unlock:         none
+    # unlock:
     update:
         aliases:    up
         use:        status
-    upgrade:    none
+    # upgrade:
 
 # Color schema
 colors:
