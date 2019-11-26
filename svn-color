@@ -13,6 +13,9 @@ L<http://svnbook.red-bean.com/>
 use Term::ANSIColor;
 
 use constant COLOR => {
+    'help' => {
+        'header' => 'bold white',
+    },
     'status' => {
         'A' => 'bold green',
         'M' => 'bold yellow',
@@ -22,7 +25,7 @@ use constant COLOR => {
         'C' => 'bold white on_red',
         '!' => 'black on_red',
         '~' => 'bold magenta on_blue',
-    }
+    },
 };
 
 use constant SVN => `which svn` // 'svn'; # Subversion executable
@@ -41,7 +44,21 @@ foreach my $line ( `$command` ) {
 
     # non-experimental switch
     for ($subcommand) {
-        if (/^st(at(us)?)?/) {
+        if (/^(h(elp)|\?)$/) {
+            $color = COLOR->{'help'}->{'header'}
+                if $line =~ /^(
+                    Available\s+subcommands
+                    |
+                    Example\s+output
+                    |
+                    Global\s+options
+                    |
+                    usage
+                    |
+                    Valid\s+options
+                ):\s/x;
+        }
+        elsif (/^st(at(us)?)?$/) {
             # http://svnbook.red-bean.com/nightly/en/svn.ref.svn.c.status.html
             my $char = substr $line, 0, 1;
             while ( my ( $key, $value ) = each %{ COLOR->{'status'} } ) {
