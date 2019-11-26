@@ -3,23 +3,23 @@ subcommands:
     add:        none
     auth:       none
     blame:
-        aliases: (blame|ann(otate)?|praise)
+        aliases: (ann(otate)?|praise)
         rules:
             new:  ^\s+-\s+-\s
     cat:        none
     changelist:
-        aliases: (changelist|cl)
+        aliases: cl
     checkout:
-        aliases: (checkout|co)
+        aliases: co
     cleanup:    none
     commit:
-        aliases: (commit|ci)
+        aliases: ci
     copy:
-        aliases: (copy|cp)
+        aliases: cp
     delete:
-        aliases: (del(ete)?|remove|rm)
+        aliases: (del|remove|rm)
     diff:
-        aliases: di(ff)
+        aliases: di
         rules:
             add_file:       '^\+{3}'
             add:            '^\+[^\+]'
@@ -29,13 +29,13 @@ subcommands:
             lines:          '^[@#]{2}'
     export: none
     help:
-        aliases: (h(elp)|\?)
+        aliases: [h\?]
         rules:
             header: ^(Available subcommands|Example output|Global options|usage|Valid options):\s
     import:     none
     info:       none
     list:
-        aliases: (list|ls)
+        aliases: ls
     lock:       none
     log:
         rules:
@@ -45,24 +45,24 @@ subcommands:
     mergeinfo:  none
     mkdir:      none
     move:
-        aliases: (move|mv, rename, ren)
+        aliases: (mv|ren(ame)?)
     patch:      none
     propdel:
-        aliases: (propdel|pd(el)?)
+        aliases: pd(el)?
     propedit:
-        aliases: (propedit|pe(dit)?)
+        aliases: pe(dit)?
     propget:
-        aliases: (propget|pg(et)?)
+        aliases: pg(et)?
     proplist:
-        aliases: (proplist|pl(ist)?)
+        aliases: pl(ist)?
     propset:
-        aliases: (propset|ps(et)?)
+        aliases: ps(et)?
     relocate:   none
     resolve:    none
     resolved:   none
     revert:     none
     status:
-        aliases: st(at(us)?)?
+        aliases: st(at)?
         rules:
             # First column
             added:          ^A
@@ -92,10 +92,10 @@ subcommands:
             victim:         ^......C
             # http://svnbook.red-bean.com/en/1.7/svn.ref.svn.c.status.html
     switch:
-        aliases: sw(itch)?
+        aliases: sw
     unlock:     none
     update:
-        aliases: up(date)?
+        aliases: up
     upgrade:    none
 
 # Color schema
