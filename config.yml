@@ -51,7 +51,8 @@ subcommands:
     move:
         aliases: (mv|ren(ame)?)
         use:        status
-    patch:      none
+    patch:
+        use:        status
     propdel:
         aliases: pd(el)?
     propedit:
@@ -73,17 +74,21 @@ subcommands:
             added:          ^A
             conflict:       ^C
             deleted:        ^D
+            existed:        ^E
             ignored:        ^I
+            merged:         ^G
             modified:       ^M
             replaced:       ^R
             external:       ^X
             missing:        ^!
             kind_changed:   ^~
             # Second column - properties
-            modified_props: ^.M
             conflict_props: ^.C
+            modified_props: ^.M
+            updated_props:  ^.U
             # Third column - lock
             locked:         ^..L
+            broken_lock:    ^..B
             # Fourth column - history
             history:        ^...\+
             # Fifth column - switch
