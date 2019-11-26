@@ -1,12 +1,28 @@
 #!/usr/bin/perl
 
-=USAGE
+=head1 NAME
 
-    svn-color [commands and arguments]
+svn-color - Wrapper for colorizing Subversion output
+
+=head1 DESCRIPTION
+
+C<svn-color> is a wrapper which spawns Subversion client C<svn>
+with specified subcommand and its arguments
+then tries to add ANSI colors to processed lines.
+
+=head1 USAGE
+
+    svn-color [subcommand and arguments]
 
 =head1 SEE ALSO
 
 L<http://svnbook.red-bean.com/>
+
+=head1 AUTHOR
+
+Alexander Sapozhnikov
+L<E<lt>shoorick@cpan.orgE<gt>>
+L<http://shoorick.ru>
 
 =cut
 
@@ -31,7 +47,7 @@ my $config = YAML::Tiny->read( "$FindBin::Bin/config.yml" )->[0]
 # constant cannot be used below as key of hash
 my $schema = $config->{'schema'} // 'default'; # TODO change color schema
 
-
+# replace subcommand with canonical name
 foreach ( keys %{ $config->{'subcommands'} } ) {
     # exact matching
     last if $subcommand eq $_;
@@ -41,7 +57,6 @@ foreach ( keys %{ $config->{'subcommands'} } ) {
 
     my $pattern = '^' . $config->{'subcommands'}->{$_}->{'aliases'} . '$';
 
-    # replace with canonical name
     $subcommand = $_
     and last
         if $subcommand =~ /$pattern/;
