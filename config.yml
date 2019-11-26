@@ -1,25 +1,28 @@
 ---
 subcommands:
-    add:        none
+    add:
+        use:    status
     auth:       none
     blame:
-        aliases: (ann(otate)?|praise)
+        aliases:    (ann(otate)?|praise)
         rules:
             new:  ^\s+-\s+-\s
     cat:        none
     changelist:
-        aliases: cl
+        aliases:    cl
     checkout:
-        aliases: co
+        aliases:    co
     cleanup:    none
     commit:
-        aliases: ci
+        aliases:    ci
     copy:
-        aliases: cp
+        aliases:    cp
+        use:        status
     delete:
-        aliases: (del|remove|rm)
+        aliases:    (del|remove|rm)
+        use:        status
     diff:
-        aliases: di
+        aliases:    di
         rules:
             add_file:       '^\+{3}'
             add:            '^\+[^\+]'
@@ -29,13 +32,13 @@ subcommands:
             lines:          '^[@#]{2}'
     export: none
     help:
-        aliases: [h\?]
+        aliases:    [h\?]
         rules:
             header: ^(Available subcommands|Example output|Global options|usage|Valid options):\s
     import:     none
     info:       none
     list:
-        aliases: ls
+        aliases:    ls
     lock:       none
     log:
         rules:
@@ -43,9 +46,11 @@ subcommands:
             line:   '^-{10}'
     merge:      none
     mergeinfo:  none
-    mkdir:      none
+    mkdir:
+        use:        status
     move:
         aliases: (mv|ren(ame)?)
+        use:        status
     patch:      none
     propdel:
         aliases: pd(el)?
@@ -92,10 +97,11 @@ subcommands:
             victim:         ^......C
             # http://svnbook.red-bean.com/en/1.7/svn.ref.svn.c.status.html
     switch:
-        aliases: sw
-    unlock:     none
+        aliases:    sw
+    unlock:         none
     update:
-        aliases: up
+        aliases:    up
+        use:        status
     upgrade:    none
 
 # Color schema

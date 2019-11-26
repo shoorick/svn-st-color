@@ -62,16 +62,24 @@ foreach ( keys %{ $config->{'subcommands'} } ) {
         if $subcommand =~ /$pattern/;
 }
 
-my $rules = $config->{'subcommands'}->{$subcommand}->{'rules'};
+my $use    = $config->{'subcommands'}->{ $subcommand }->{'use'};
+my $rules  = $config->{'subcommands'}->{ $subcommand }->{'rules'};
+my $colors = $config->{'colors'}->{ $schema }->{ $subcommand };
 
+# Override rules and colors
+if ( $use ) {
+    $rules  = $config->{'subcommands'}->{ $use }->{'rules'};
+    $colors = $config->{'colors'}->{ $schema }->{ $use };
+}
+
+# Colorize lines
 foreach my $line ( `$command` ) {
     my $color;
 
     RULES:
     while ( my ( $name, $pattern ) = each %$rules ) {
         if ( $line =~ /$pattern/ ) {
-            $color = $config->{'colors'}->{$schema}->{$subcommand}->{$name}
-                if exists $config->{'colors'}->{$schema}->{$subcommand};
+            $color = $colors->{ $name } if $colors;
             last RULES;
         }
     }
