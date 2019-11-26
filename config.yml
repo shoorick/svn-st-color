@@ -1,0 +1,152 @@
+---
+subcommands:
+    add:        none
+    auth:       none
+    blame:
+        aliases: (blame|ann(otate)?|praise)
+        rules:
+            new:  ^\s+-\s+-\s
+    cat:        none
+    changelist:
+        aliases: (changelist|cl)
+    checkout:
+        aliases: (checkout|co)
+    cleanup:    none
+    commit:
+        aliases: (commit|ci)
+    copy:
+        aliases: (copy|cp)
+    delete:
+        aliases: (del(ete)?|remove|rm)
+    diff:
+        aliases: di(ff)
+        rules:
+            add_file:       '^\+{3}'
+            add:            '^\+[^\+]'
+            remove_file:    '^-{3}'
+            remove:         '^-'
+            index:          '^(Index:|===)'
+            lines:          '^[@#]{2}'
+    export: none
+    help:
+        aliases: (h(elp)|\?)
+        rules:
+            header: ^(Available subcommands|Example output|Global options|usage|Valid options):\s
+    import:     none
+    info:       none
+    list:
+        aliases: (list|ls)
+    lock:       none
+    log:
+        rules:
+            data:   '^r\d+\s+\|\s+\w+\s+\|\s+\d+'
+            line:   '^-{10}'
+    merge:      none
+    mergeinfo:  none
+    mkdir:      none
+    move:
+        aliases: (move|mv, rename, ren)
+    patch:      none
+    propdel:
+        aliases: (propdel|pd(el)?)
+    propedit:
+        aliases: (propedit|pe(dit)?)
+    propget:
+        aliases: (propget|pg(et)?)
+    proplist:
+        aliases: (proplist|pl(ist)?)
+    propset:
+        aliases: (propset|ps(et)?)
+    relocate:   none
+    resolve:    none
+    resolved:   none
+    revert:     none
+    status:
+        aliases: st(at(us)?)?
+        rules:
+            # First column
+            added:          ^A
+            conflict:       ^C
+            deleted:        ^D
+            ignored:        ^I
+            modified:       ^M
+            replaced:       ^R
+            external:       ^X
+            missing:        ^!
+            kind_changed:   ^~
+            # Second column - properties
+            modified_props: ^.M
+            conflict_props: ^.C
+            # Third column - lock
+            locked:         ^..L
+            # Fourth column - history
+            history:        ^...\+
+            # Fifth column - switch
+            switch:         ^....S
+            # Sixth column
+            locked_here:    ^.....K
+            locked_other:   ^.....O
+            locked_stolen:  ^.....T
+            locked_broken:  ^.....B
+            # Seventh column
+            victim:         ^......C
+            # http://svnbook.red-bean.com/en/1.7/svn.ref.svn.c.status.html
+    switch:
+        aliases: sw(itch)?
+    unlock:     none
+    update:
+        aliases: up(date)?
+    upgrade:    none
+
+# Color schema
+colors:
+    default:
+        blame:
+            new:            bold white
+        diff:
+            add:            green
+            add_file:       bold green
+            remove:         red
+            remove_file:    bold red
+            lines:          bold white
+            index:          bold cyan
+        help:
+            header:         bold white
+        log:
+            line:           bold white
+            data:           bold cyan
+        status:
+            added:          bold green
+            modified:       bold yellow
+            modified_props: black on_yellow
+            deleted:        bold red
+            replaced:       bold cyan
+            ignored:        bold black
+            conflict:       bold white on_red
+            missing:        black on_red
+            kind_changed:   bold magenta on_blue
+    light:
+        blame:
+            new:            bold black
+        diff:
+            add:            green
+            add_file:       green on_white
+            remove:         red
+            remove_file:    red on_white
+            lines:          bold black
+            index:          bold blue
+        help:
+            header:         bold black
+        log:
+            line:           bold black
+            data:           bold blue
+        status:
+            added:          green
+            modified:       yellow
+            modified_props: black on_yellow
+            deleted:        red
+            replaced:       cyan
+            ignored:        bold black
+            conflict:       bold yellow on_red
+            missing:        black on_red
+            kind_changed:   bold magenta on_blue

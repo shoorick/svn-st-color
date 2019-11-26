@@ -10,38 +10,9 @@ L<http://svnbook.red-bean.com/>
 
 =cut
 
+use FindBin;
 use Term::ANSIColor;
-
-use constant COLOR => {
-    'blame' => {
-        'new' => 'bold white',
-    },
-    'diff' => {
-        'add'         => 'green',
-        'add-file'    => 'bold green',
-        'remove'      => 'red',
-        'remove-file' => 'bold red',
-        'lines'       => 'bold white',
-        'index'       => 'bold cyan',
-    },
-    'help' => {
-        'header' => 'bold white',
-    },
-    'log' => {
-        'line' => 'bold white',
-        'data' => 'bold cyan',
-    },
-    'status' => {
-        'A' => 'bold green',
-        'M' => 'bold yellow',
-        'D' => 'bold red',
-        'R' => 'bold cyan',
-        'I' => 'bold black',
-        'C' => 'bold white on_red',
-        '!' => 'black on_red',
-        '~' => 'bold magenta on_blue',
-    },
-};
+use YAML::Tiny;
 
 use constant SVN => `which svn` // 'svn'; # Subversion executable
 
@@ -54,64 +25,39 @@ print `$command`
     and exit
     if $ENV{'TERM'} !~ /color/;
 
+my $config = YAML::Tiny->read( "$FindBin::Bin/config.yml" )->[0]
+    or die "Cannot read configuration: $!";
+
+# constant cannot be used below as key of hash
+my $schema = $config->{'schema'} // 'default'; # TODO change color schema
+
+
+foreach ( keys %{ $config->{'subcommands'} } ) {
+    # exact matching
+    last if $subcommand eq $_;
+
+    next
+        unless $config->{'subcommands'}->{$_}->{'aliases'};
+
+    my $pattern = '^' . $config->{'subcommands'}->{$_}->{'aliases'} . '$';
+
+    # replace with canonical name
+    $subcommand = $_
+    and last
+        if $subcommand =~ /$pattern/;
+}
+
+my $rules = $config->{'subcommands'}->{$subcommand}->{'rules'};
+
 foreach my $line ( `$command` ) {
     my $color;
 
-    # non-experimental switch
-    for ($subcommand) {
-        if (/^(blame|ann(otate)?|praise)$/) {
-            $color = COLOR->{'blame'}->{'new'}
-                if $line =~ /^\s+-\s+-\s/;
-        }
-        elsif (/^di(ff)?/) {
-            local $_ = $line;
-            my $colors = COLOR->{'diff'};
-
-            $color = $colors->{'add-file'}
-                and next if /^\+{3}/;
-            $color = $colors->{'add'}
-                and next if /^\+/;
-            $color = $colors->{'remove-file'}
-                and next if /^-{3}/;
-            $color = $colors->{'remove'}
-                and next if /^-/;
-            $color = $colors->{'index'}
-                and next if /^(Index:|===)/;
-            $color = $colors->{'lines'}
-                and next if /^[@#]{2}/;
-        }
-        elsif (/^(h(elp)|\?)$/) {
-            $color = COLOR->{'help'}->{'header'}
-                if $line =~ /^(
-                    Available\s+subcommands
-                    |
-                    Example\s+output
-                    |
-                    Global\s+options
-                    |
-                    usage
-                    |
-                    Valid\s+options
-                ):\s/x;
-        }
-        elsif (/^log$/) {
-            local $_ = $line;
-            my $colors = COLOR->{'log'};
-
-            $color = $colors->{'line'}
-                and next if /^-{10}/;
-            $color = $colors->{'data'}
-                and next if /^r\d+\s+\|\s+\w+\s+\|\s+\d+/; # r42 | as | 2012
-        }
-        elsif (/^st(at(us)?)?$/) {
-            # http://svnbook.red-bean.com/nightly/en/svn.ref.svn.c.status.html
-            my $char = substr $line, 0, 1;
-            while ( my ( $key, $value ) = each %{ COLOR->{'status'} } ) {
-                $color = $value
-                #,
-                #last
-                    if $key eq $char;
-            }
+    RULES:
+    while ( my ( $name, $pattern ) = each %$rules ) {
+        if ( $line =~ /$pattern/ ) {
+            $color = $config->{'colors'}->{$schema}->{$subcommand}->{$name}
+                if exists $config->{'colors'}->{$schema}->{$subcommand};
+            last RULES;
         }
     }
 
