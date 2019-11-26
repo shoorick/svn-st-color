@@ -13,7 +13,7 @@ L<http://svnbook.red-bean.com/>
 use Term::ANSIColor;
 
 use constant COLOR => {
-    '1' => {
+    'status' => {
         'A' => 'bold green',
         'M' => 'bold yellow',
         'D' => 'bold red',
@@ -44,7 +44,7 @@ foreach my $line ( `$command` ) {
         if (/^st(at(us)?)?/) {
             # http://svnbook.red-bean.com/nightly/en/svn.ref.svn.c.status.html
             my $char = substr $line, 0, 1;
-            while ( my ( $key, $value ) = each %{ COLOR->{'1'} } ) {
+            while ( my ( $key, $value ) = each %{ COLOR->{'status'} } ) {
                 $color = $value
                 #,
                 #last
