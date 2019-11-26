@@ -27,6 +27,10 @@ use constant COLOR => {
     'help' => {
         'header' => 'bold white',
     },
+    'log' => {
+        'line' => 'bold white',
+        'data' => 'bold cyan',
+    },
     'status' => {
         'A' => 'bold green',
         'M' => 'bold yellow',
@@ -89,6 +93,15 @@ foreach my $line ( `$command` ) {
                     |
                     Valid\s+options
                 ):\s/x;
+        }
+        elsif (/^log$/) {
+            local $_ = $line;
+            my $colors = COLOR->{'log'};
+
+            $color = $colors->{'line'}
+                and next if /^-{10}/;
+            $color = $colors->{'data'}
+                and next if /^r\d+\s+\|\s+\w+\s+\|\s+\d+/; # r42 | as | 2012
         }
         elsif (/^st(at(us)?)?$/) {
             # http://svnbook.red-bean.com/nightly/en/svn.ref.svn.c.status.html
