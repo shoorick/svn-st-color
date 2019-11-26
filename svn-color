@@ -61,18 +61,19 @@ foreach my $line ( `$command` ) {
         }
         elsif (/^di(ff)?/) {
             local $_ = $line;
+            my $colors = COLOR->{'diff'};
 
-            $color = COLOR->{'diff'}->{'add-file'}
+            $color = $colors->{'add-file'}
                 and next if /^\+{3}/;
-            $color = COLOR->{'diff'}->{'add'}
+            $color = $colors->{'add'}
                 and next if /^\+/;
-            $color = COLOR->{'diff'}->{'remove-file'}
+            $color = $colors->{'remove-file'}
                 and next if /^-{3}/;
-            $color = COLOR->{'diff'}->{'remove'}
+            $color = $colors->{'remove'}
                 and next if /^-/;
-            $color = COLOR->{'diff'}->{'index'}
+            $color = $colors->{'index'}
                 and next if /^(Index:|===)/;
-            $color = COLOR->{'diff'}->{'lines'}
+            $color = $colors->{'lines'}
                 and next if /^[@#]{2}/;
         }
         elsif (/^(h(elp)|\?)$/) {
