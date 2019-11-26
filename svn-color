@@ -13,6 +13,9 @@ L<http://svnbook.red-bean.com/>
 use Term::ANSIColor;
 
 use constant COLOR => {
+    'blame' => {
+        'new' => 'bold white',
+    },
     'diff' => {
         'add'         => 'green',
         'add-file'    => 'bold green',
@@ -52,7 +55,11 @@ foreach my $line ( `$command` ) {
 
     # non-experimental switch
     for ($subcommand) {
-        if (/^di(ff)?/) {
+        if (/^(blame|ann(otate)?|praise)$/) {
+            $color = COLOR->{'blame'}->{'new'}
+                if $line =~ /^\s+-\s+-\s/;
+        }
+        elsif (/^di(ff)?/) {
             local $_ = $line;
 
             $color = COLOR->{'diff'}->{'add-file'}
