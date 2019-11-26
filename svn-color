@@ -1,0 +1,62 @@
+#!/usr/bin/perl
+
+=USAGE
+
+    svn-color [commands and arguments]
+
+=head1 SEE ALSO
+
+L<http://svnbook.red-bean.com/>
+
+=cut
+
+use Term::ANSIColor;
+
+use constant COLOR => {
+    '1' => {
+        'A' => 'bold green',
+        'M' => 'bold yellow',
+        'D' => 'bold red',
+        'R' => 'bold cyan',
+        'I' => 'bold black',
+        'C' => 'bold white on_red',
+        '!' => 'black on_red',
+        '~' => 'bold magenta on_blue',
+    }
+};
+
+use constant SVN => `which svn` // 'svn'; # Subversion executable
+
+$|=1;
+my    $command = join ' ', SVN =~ s/\s+$//r, @ARGV;
+my $subcommand = shift;
+
+# Show result as is if terminal doesn't support colors
+print `$command`
+    and exit
+    if $ENV{'TERM'} !~ /color/;
+
+foreach my $line ( `$command` ) {
+    my $color;
+
+    # non-experimental switch
+    for ($subcommand) {
+        if (/^st(at(us)?)?/) {
+            # http://svnbook.red-bean.com/nightly/en/svn.ref.svn.c.status.html
+            my $char = substr $line, 0, 1;
+            while ( my ( $key, $value ) = each %{ COLOR->{'1'} } ) {
+                $color = $value
+                #,
+                #last
+                    if $key eq $char;
+            }
+        }
+    }
+
+    print $line
+    and next
+        unless $color;
+
+    chomp $line;
+    print colored($line, $color), "\n";
+} # foreach row in command output
