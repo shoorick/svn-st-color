@@ -13,6 +13,14 @@ L<http://svnbook.red-bean.com/>
 use Term::ANSIColor;
 
 use constant COLOR => {
+    'diff' => {
+        'add'         => 'green',
+        'add-file'    => 'bold green',
+        'remove'      => 'red',
+        'remove-file' => 'bold red',
+        'lines'       => 'bold white',
+        'index'       => 'bold cyan',
+    },
     'help' => {
         'header' => 'bold white',
     },
@@ -44,7 +52,23 @@ foreach my $line ( `$command` ) {
 
     # non-experimental switch
     for ($subcommand) {
-        if (/^(h(elp)|\?)$/) {
+        if (/^di(ff)?/) {
+            local $_ = $line;
+
+            $color = COLOR->{'diff'}->{'add-file'}
+                and next if /^\+{3}/;
+            $color = COLOR->{'diff'}->{'add'}
+                and next if /^\+/;
+            $color = COLOR->{'diff'}->{'remove-file'}
+                and next if /^-{3}/;
+            $color = COLOR->{'diff'}->{'remove'}
+                and next if /^-/;
+            $color = COLOR->{'diff'}->{'index'}
+                and next if /^(Index:|===)/;
+            $color = COLOR->{'diff'}->{'lines'}
+                and next if /^[@#]{2}/;
+        }
+        elsif (/^(h(elp)|\?)$/) {
             $color = COLOR->{'help'}->{'header'}
                 if $line =~ /^(
                     Available\s+subcommands
