@@ -1,6 +1,6 @@
 # svn-st-color
 
-Wrappers for colorizing Subversion output.
+Wrapper for colorizing Subversion output.
 
 `svn-color` is a wrapper which spawns Subversion command line client `svn`
 with specified subcommand and its arguments
