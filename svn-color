@@ -33,16 +33,20 @@ use FindBin;
 use Term::ANSIColor;
 use YAML::Tiny;
 
-use constant SVN => `which svn` // 'svn'; # Subversion executable
+my $SVN = `which svn` // 'svn'; # Subversion executable
+   $SVN =~ s/\s+$//;
 
 $|=1;
-my    $command = join ' ', SVN =~ s/\s+$//r, @ARGV;
-my $subcommand = shift;
+my $interactive = grep { /^--force-interactive$/ } @ARGV;
 
 # Show result as is if terminal doesn't support colors
-print `$command`
+exec $SVN, @ARGV
     and exit
-    if $ENV{'TERM'} !~ /color/;
+    if $ENV{'TERM'} !~ /color/
+    || $interactive;
+
+my $command    = join ' ', $SVN, @ARGV;
+my $subcommand = $ARGV[0]; # instead of shift
 
 my $config = YAML::Tiny->read( "$FindBin::Bin/config.yml" )->[0]
     or die "Cannot read configuration: $!";
@@ -64,6 +68,11 @@ foreach ( keys %{ $config->{'subcommands'} } ) {
     and last
         if $subcommand =~ /$pattern/;
 }
+
+# is command interactive?
+exec $SVN, @ARGV
+and exit
+    if $config->{'subcommands'}->{ $subcommand }->{'interactive'};
 
 my $use    = $config->{'subcommands'}->{ $subcommand }->{'use'};
 my $rules  = $config->{'subcommands'}->{ $subcommand }->{'rules'};
