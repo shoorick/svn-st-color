@@ -87,6 +87,7 @@ if ( $use ) {
 # Colorize lines
 foreach my $line ( `$command` ) {
     my $color;
+    keys %$rules; # reset each()
 
     RULES:
     while ( my ( $name, $pattern ) = each %$rules ) {
