@@ -29,7 +29,8 @@ subcommands:
             remove_file:    '^-{3}'
             remove:         '^-{1,2}[^-]'
             index:          '^(Index:|===)'
-            lines:          '^[@#]{2}'
+            lines:          '^[@#_]{2}'
+            modified:       '^(Property changes on|Modified): '
     # export:
     help:
         aliases:    [h\?]
@@ -122,6 +123,7 @@ colors:
             remove_file:    bold red
             lines:          bold white
             index:          bold cyan
+            modified:       bold yellow
         help:
             header:         bold white
         log:
@@ -147,6 +149,7 @@ colors:
             remove_file:    red on_white
             lines:          bold black
             index:          bold blue
+            modified:       yellow
         help:
             header:         bold black
         log:
