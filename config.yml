@@ -25,9 +25,9 @@ subcommands:
         aliases:    di
         rules:
             add_file:       '^\+{3}'
-            add:            '^\+[^\+]'
+            add:            '^\+{1,2}[^\+]'
             remove_file:    '^-{3}'
-            remove:         '^-'
+            remove:         '^-{1,2}[^-]'
             index:          '^(Index:|===)'
             lines:          '^[@#]{2}'
     # export:
