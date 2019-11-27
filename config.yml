@@ -23,6 +23,8 @@ subcommands:
         use:        status
     diff:
         aliases:    di
+        conditional_use:
+            '--summarize':  status
         rules:
             add_file:       '^\+{3}'
             add:            '^\+{1,2}[^\+]'

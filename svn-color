@@ -74,14 +74,22 @@ exec $SVN, @ARGV
 and exit
     if $config->{'subcommands'}->{ $subcommand }->{'interactive'};
 
-my $use    = $config->{'subcommands'}->{ $subcommand }->{'use'};
 my $rules  = $config->{'subcommands'}->{ $subcommand }->{'rules'};
 my $colors = $config->{'colors'}->{ $schema }->{ $subcommand };
 
 # Override rules and colors
-if ( $use ) {
-    $rules  = $config->{'subcommands'}->{ $use }->{'rules'};
-    $colors = $config->{'colors'}->{ $schema }->{ $use };
+if ( my $use = $config->{'subcommands'}->{ $subcommand }->{'use'} ) {
+    $rules   = $config->{'subcommands'}->{ $use }->{'rules'};
+    $colors  = $config->{'colors'}->{ $schema }->{ $use };
+}
+
+if ( my $conditional_use = $config->{'subcommands'}->{ $subcommand }->{'conditional_use'} ) {
+    while ( my ( $argument, $use ) = each %$conditional_use ) {
+        if ( grep { /^$argument$/ } @ARGV ) {
+            $rules   = $config->{'subcommands'}->{ $use }->{'rules'};
+            $colors  = $config->{'colors'}->{ $schema }->{ $use };
+        }
+    }
 }
 
 # Colorize lines
