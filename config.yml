@@ -1,10 +1,13 @@
 ---
 subcommands:
     add:
+        # use rules of other subcommand
         use:    status
     # auth: not yet implemented
     blame:
+        # aliases of subcommand - regular expression without ^ and $
         aliases:    (ann(otate)?|praise)
+        # matching rules: name and regular expression
         rules:
             new:  ^\s+-\s+-\s
     # cat:
@@ -23,6 +26,8 @@ subcommands:
         use:        status
     diff:
         aliases:    di
+        # use rules of other subcommand
+        # when specified argument found in command line
         conditional_use:
             '--summarize':  status
         rules:
@@ -60,6 +65,7 @@ subcommands:
         aliases: pd(el)?
     propedit:
         aliases: pe(dit)?
+        # bypass all output processing
         interactive:    1
     propget:
         aliases: pg(et)?
