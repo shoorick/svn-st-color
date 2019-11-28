@@ -46,7 +46,7 @@ exec $SVN, @ARGV
     || $interactive;
 
 my $command    = join ' ', $SVN, @ARGV;
-my $subcommand = $ARGV[0]; # instead of shift
+my $subcommand = $ARGV[0] // ''; # instead of shift
 
 my $config = YAML::Tiny->read( "$FindBin::Bin/config.yml" )->[0]
     or die "Cannot read configuration: $!";
