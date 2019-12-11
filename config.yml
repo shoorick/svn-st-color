@@ -81,7 +81,7 @@ subcommands:
         aliases: st(at)?
         rules:
             # First column
-            added:          ^A
+            added:          ^A[^t]
             conflict:       ^C
             deleted:        ^D
             existed:        ^E
