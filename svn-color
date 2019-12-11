@@ -45,7 +45,6 @@ exec $SVN, @ARGV
     if $ENV{'TERM'} !~ /color/
     || $interactive;
 
-my $command    = join ' ', $SVN, @ARGV;
 my $subcommand = $ARGV[0] // ''; # instead of shift
 
 my $config = YAML::Tiny->read( "$FindBin::Bin/config.yml" )->[0]
@@ -93,22 +92,27 @@ if ( my $conditional_use = $config->{'subcommands'}->{ $subcommand }->{'conditio
 }
 
 # Colorize lines
-foreach my $line ( `$command` ) {
+open(my $fh, '-|', $SVN, @ARGV)
+    or die "Cannot run $SVN: $!";
+
+while ( <$fh> ) {
     my $color;
     keys %$rules; # reset each()
 
     RULES:
     while ( my ( $name, $pattern ) = each %$rules ) {
-        if ( $line =~ /$pattern/ ) {
+        if ( /$pattern/ ) {
             $color = $colors->{ $name } if $colors;
             last RULES;
         }
     }
 
-    print $line
+    print
     and next
         unless $color;
 
-    chomp $line;
-    print colored($line, $color), "\n";
-} # foreach row in command output
+    chomp;
+    print colored($_, $color), "\n";
+} # while command give output
+
+close $fh;
