@@ -152,9 +152,9 @@ colors:
             new:            bold black
         diff:
             add:            green
-            add_file:       green on_white
+            add_file:       bold green
             remove:         red
-            remove_file:    red on_white
+            remove_file:    bold red
             lines:          bold black
             index:          bold blue
             modified:       yellow

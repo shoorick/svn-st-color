@@ -50,8 +50,7 @@ my $subcommand = $ARGV[0] // ''; # instead of shift
 my $config = YAML::Tiny->read( "$FindBin::Bin/config.yml" )->[0]
     or die "Cannot read configuration: $!";
 
-# constant cannot be used below as key of hash
-my $schema = $config->{'schema'} // 'default'; # TODO change color schema
+my $schema = $ENV{'SVNCOLOR'} // $config->{'schema'} // 'default';
 
 # replace subcommand with canonical name
 foreach ( keys %{ $config->{'subcommands'} } ) {

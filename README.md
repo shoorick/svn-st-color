@@ -33,6 +33,18 @@ Use `svn-color` instead of usual `svn` or make symlink/alias (see above).
 
 ![Screenshot](screenshot-svn-diff.png)
 
+## Color schemas
+
+There are two color schemas specified in `config.yml`:
+`default` for dark background and `light`.
+
+Preferred schema can be chosen via `SVNCOLOR` environment variable:
+
+```bash
+export SVNCOLOR=light
+svn diff
+```
+
 ## Frequently Asked Questions
 
 ### How to bypass this program?
@@ -51,5 +63,4 @@ svn subcommand --force-interactive
 
 ## TODO
 
-* Choose color schema.
 * Make deb package.
