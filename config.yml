@@ -18,6 +18,8 @@ subcommands:
     # cleanup:
     commit:
         aliases:    ci
+        rules:
+            committed:  '^Committed revision \d+'
     copy:
         aliases:    cp
         use:        status
@@ -118,12 +120,19 @@ subcommands:
         aliases:    up
         use:        status
     # upgrade:
+    ALL:
+        STDERR:
+            rules:
+                error:      '^svn: E\d+:'
+                warning:    '^svn: warning: W\d+:'
 
 # Color schema
 colors:
     default:
         blame:
             new:            bold white
+        commit:
+            committed:      green
         diff:
             add:            green
             add_file:       bold green
@@ -147,9 +156,14 @@ colors:
             conflict:       bold white on_red
             missing:        black on_red
             kind_changed:   bold magenta on_blue
+        STDERR:
+            error:          red
+            warning:        yellow
     light:
         blame:
             new:            bold black
+        commit:
+            committed:      green
         diff:
             add:            green
             add_file:       bold green
@@ -160,6 +174,9 @@ colors:
             modified:       yellow
         help:
             header:         bold black
+        info:
+            error:          red
+            warning:        yellow
         log:
             line:           bold black
             data:           bold blue
@@ -173,3 +190,6 @@ colors:
             conflict:       bold yellow on_red
             missing:        black on_red
             kind_changed:   bold magenta on_blue
+        STDERR:
+            error:          red
+            warning:        yellow
