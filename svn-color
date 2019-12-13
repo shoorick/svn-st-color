@@ -43,7 +43,8 @@ my $interactive = grep { /^--force-interactive$/ } @ARGV;
 exec $SVN, @ARGV
     and exit
     if $ENV{'TERM'} !~ /color/
-    || $interactive;
+    || $interactive
+    || !-t STDOUT;
 
 my $subcommand = $ARGV[0] // ''; # instead of shift
 
