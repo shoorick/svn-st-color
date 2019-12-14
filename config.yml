@@ -13,6 +13,7 @@ subcommands:
     # cat:
     changelist:
         aliases:    cl
+        use:        status
     checkout:
         aliases:    co
     # cleanup:
@@ -113,6 +114,7 @@ subcommands:
             # Seventh column
             victim:         ^......C
             # http://svnbook.red-bean.com/en/1.7/svn.ref.svn.c.status.html
+            list:           ^--- Changelist
     switch:
         aliases:    sw
     # unlock:
@@ -156,6 +158,7 @@ colors:
             conflict:       bold white on_red
             missing:        black on_red
             kind_changed:   bold magenta on_blue
+            list:           bold white
         STDERR:
             error:          red
             warning:        yellow
@@ -190,6 +193,7 @@ colors:
             conflict:       bold yellow on_red
             missing:        black on_red
             kind_changed:   bold magenta on_blue
+            list:           bold black
         STDERR:
             error:          red
             warning:        yellow
