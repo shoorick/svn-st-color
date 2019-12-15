@@ -124,6 +124,7 @@ subcommands:
             list:           ^--- Changelist
     switch:
         aliases:    sw
+        use:        status
     # unlock:
     update:
         aliases:    up
