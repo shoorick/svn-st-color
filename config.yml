@@ -16,6 +16,13 @@ subcommands:
         use:        status
     checkout:
         aliases:    co
+        rules:
+            added:          ^A
+            checked_out:    ^Checked out
+            conflict:       ^...C
+            forced:         ^E
+            restored:       ^Restored
+            updated_props:  ^.U
     # cleanup:
     commit:
         aliases:    ci
@@ -133,6 +140,13 @@ colors:
     default:
         blame:
             new:            bold white
+        checkout:
+            added:          green
+            conflict:       bold white on_red
+            checked_out:    bold white
+            forced:         cyan
+            restored:       bold green
+            updated_props:  black on_yellow
         commit:
             committed:      green
         diff:
@@ -165,6 +179,13 @@ colors:
     light:
         blame:
             new:            bold black
+        checkout:
+            added:          green
+            checked_out:    bold black
+            conflict:       bold yellow on_red
+            forced:         cyan
+            restored:       bold green
+            updated_props:  black on_yellow
         commit:
             committed:      green
         diff:
