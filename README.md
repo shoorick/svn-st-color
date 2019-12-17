@@ -63,4 +63,5 @@ svn subcommand --force-interactive
 
 ## TODO
 
+* Process own arguments.
 * Make deb package.
