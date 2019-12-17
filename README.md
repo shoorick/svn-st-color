@@ -51,17 +51,16 @@ svn diff
 
 You can use original `svn` client even this program is alias for it:
 
+* Add `--bypass`, `--force-interactive` or `--no-color` argument to command line
+```bash
+svn subcommand --force-interactive
+```
+
 * Specify full path:
 ```bash
 `which svn` subcommand
 ```
 
-* Add `--force-interactive` argument to command line
-```bash
-svn subcommand --force-interactive
-```
-
 ## TODO
 
-* Process own arguments.
 * Make deb package.

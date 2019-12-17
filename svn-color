@@ -14,6 +14,16 @@ then tries to add ANSI colors to processed lines.
 
     svn-color [subcommand and arguments]
 
+=head1 OPTIONS
+
+=over 4
+
+=item B<--bypass>, B<--no-color>
+
+Do not colorize output. Use original C<svn> instead.
+
+=back
+
 =head1 SEE ALSO
 
 L<http://svnbook.red-bean.com/>
@@ -36,14 +46,20 @@ use YAML::Tiny;
 my $SVN = `which svn` // 'svn'; # Subversion executable
    $SVN =~ s/\s+$//;
 
-$|=1;
-my $interactive = grep { /^--force-interactive$/ } @ARGV;
+# Bypass colorizing?
+# Check for svn argument
+my $bypass = grep { /^--force-interactive$/ } @ARGV;
+# and remove our arguments
+my $ARGV_LENGTH = scalar @ARGV;
+@ARGV = grep { !/^--(bypass|no-color)$/ } @ARGV;
+$bypass = 1
+    if $ARGV_LENGTH != scalar @ARGV;
 
 # Show result as is if terminal doesn't support colors
 exec $SVN, @ARGV
     and exit
     if $ENV{'TERM'} !~ /color/
-    || $interactive
+    || $bypass
     || !-t STDOUT;
 
 my $subcommand = $ARGV[0] // ''; # instead of shift
@@ -90,6 +106,8 @@ if ( my $conditional_use = $config->{'subcommands'}->{ $subcommand }->{'conditio
         }
     }
 }
+
+$|=1;
 
 # Colorize lines
 open(my $fh, '-|', $SVN, @ARGV)
