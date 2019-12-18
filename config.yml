@@ -122,6 +122,7 @@ subcommands:
             victim:         ^......C
             # http://svnbook.red-bean.com/en/1.7/svn.ref.svn.c.status.html
             list:           ^--- Changelist
+            moved:          ^ {8}> moved
     switch:
         aliases:    sw
         use:        status
@@ -174,6 +175,7 @@ colors:
             missing:        black on_red
             kind_changed:   bold magenta on_blue
             list:           bold white
+            moved:          cyan
         STDERR:
             error:          red
             warning:        yellow
@@ -216,6 +218,7 @@ colors:
             missing:        black on_red
             kind_changed:   bold magenta on_blue
             list:           bold black
+            moved:          cyan
         STDERR:
             error:          red
             warning:        yellow
