@@ -175,6 +175,7 @@ colors:
             missing:        black on_red
             kind_changed:   bold magenta on_blue
             list:           bold white
+            locked:         black on_magenta
             moved:          cyan
         STDERR:
             error:          red
@@ -218,6 +219,7 @@ colors:
             missing:        black on_red
             kind_changed:   bold magenta on_blue
             list:           bold black
+            locked:         black on_bright_magenta
             moved:          cyan
         STDERR:
             error:          red
