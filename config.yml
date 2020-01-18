@@ -91,14 +91,14 @@ subcommands:
         aliases: st(at)?
         rules:
             # First column
-            added:          ^A[^t]
+            added:          ^A[^t].[^\+]
             conflict:       ^C
             deleted:        ^D
             existed:        ^E
             ignored:        ^I
             merged:         ^G
             modified:       ^M
-            replaced:       ^R
+            replaced:       ^R..[^\+]
             external:       ^X
             missing:        ^!
             kind_changed:   ^~
@@ -110,7 +110,9 @@ subcommands:
             locked:         ^..L
             broken_lock:    ^..B
             # Fourth column - history
-            history:        ^...\+
+            added_with_history:     ^A[^t].\+
+            replaced_with_history:  ^R..\+
+            history:                ^[^AR]..\+
             # Fifth column - switch
             switch:         ^....S
             # Sixth column
@@ -176,7 +178,10 @@ colors:
             kind_changed:   bold magenta on_blue
             list:           bold white
             locked:         black on_magenta
-            moved:          cyan
+            moved:          cyan on_blue
+            added_with_history:     bold green on_blue
+            replaced_with_history:  bold cyan on_blue
+            history:                white on_blue
         STDERR:
             error:          red
             warning:        yellow
@@ -220,7 +225,10 @@ colors:
             kind_changed:   bold magenta on_blue
             list:           bold black
             locked:         black on_bright_magenta
-            moved:          cyan
+            moved:          cyan on_bright_cyan
+            added_with_history:     green on_bright_cyan
+            replaced_with_history:  blue on_bright_cyan
+            history:                white on_bright_cyan
         STDERR:
             error:          red
             warning:        yellow
