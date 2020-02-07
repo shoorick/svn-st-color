@@ -93,11 +93,11 @@ subcommands:
             # First column
             added:          ^A[^t].[^\+]
             conflict:       ^C
-            deleted:        ^D
+            deleted:        ^D..[^\+]
             existed:        ^E
             ignored:        ^I
             merged:         ^G
-            modified:       ^M
+            modified:       ^M..[^\+]
             replaced:       ^R..[^\+]
             external:       ^X
             missing:        ^!
@@ -111,8 +111,10 @@ subcommands:
             broken_lock:    ^..B
             # Fourth column - history
             added_with_history:     ^A[^t].\+
+            deleted_with_history:   ^D..\+
+            modified_with_history:  ^M..\+
             replaced_with_history:  ^R..\+
-            history:                ^[^AR]..\+
+            history:                ^[^ADMR]..\+
             # Fifth column - switch
             switch:         ^....S
             # Sixth column
@@ -180,6 +182,8 @@ colors:
             locked:         black on_magenta
             moved:          cyan on_blue
             added_with_history:     bold green on_blue
+            deleted_with_history:   bold red on_blue
+            modified_with_history:  bold yellow on_blue
             replaced_with_history:  bold cyan on_blue
             history:                white on_blue
         STDERR:
@@ -227,6 +231,8 @@ colors:
             locked:         black on_bright_magenta
             moved:          cyan on_bright_cyan
             added_with_history:     green on_bright_cyan
+            deleted_with_history:   red on_bright_cyan
+            modified_with_history:  yellow on_bright_cyan
             replaced_with_history:  blue on_bright_cyan
             history:                white on_bright_cyan
         STDERR:
