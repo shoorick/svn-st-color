@@ -56,9 +56,10 @@ $bypass = 1
     if $ARGV_LENGTH != scalar @ARGV;
 
 # Show result as is if terminal doesn't support colors
+my $TERM = $ENV{'TERM'} // '';
 exec $SVN, @ARGV
     and exit
-    if $ENV{'TERM'} !~ /color/
+    if $TERM !~ /color/
     || $bypass
     || !-t STDOUT;
 
